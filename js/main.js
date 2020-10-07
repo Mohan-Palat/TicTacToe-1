@@ -1,5 +1,4 @@
 let currentTurn = 1;
-
 const player1 = {
     name: 'Player 1',
     character: 'X'
@@ -69,17 +68,36 @@ function displayPlayerTurn() {
 }
 
 function checkIfButtonSelected(event) {
-    console.log(event.target.value);
-    if (event.target.value == 'X' && event.target.value == 'O') {
+    if (event.target.value == 'X' || event.target.value == 'O') {
         return true;
     } else {
         false;
     }
 }
+
+function displayWinner(winningCharacter = 0) {
+    if(winningCharacter === player1.character) {
+        console.log(player1.name + " is the winner!");
+    } else if(winningCharacter === player2.character) {
+        console.log(player2.name + " is the winner!");
+    } else {
+        console.log("The Game is a Tie!!");
+    }
+
+}
+function checkIfArrayComplete(valueArray) {
+    let count = 0;
+    valueArray.forEach(element => {
+        if (element === 'O' || element === 'X') {
+            count = count + 1;
+        }
+    })
+    return count
+}
 function checkForWinner() {
     buttons = document.querySelectorAll('.button')
     let valueArray = []
-    buttons.forEach( (button, index) => {
+    buttons.forEach( (button) => {
        valueArray.push(button.value)
     })
     console.log(valueArray);
@@ -119,6 +137,11 @@ function checkForWinner() {
         valueArray[4] === valueArray[6] && 
         valueArray[2] === valueArray[6] ) {
         displayWinner(valueArray[2])
+    } else {
+        let count = checkIfArrayComplete(valueArray)
+        if (count === 9) {
+            displayWinner()
+        }
     }
     //===== horizontal winners
     // index 0, 1, 2 match - done
@@ -131,12 +154,4 @@ function checkForWinner() {
     //===== diagonal winners
     // index 0, 4, 8 match - done
     // index 2, 4, 6 match - done
-}
-function displayWinner(winningCharacter) {
-    if(winningCharacter === player1.character) {
-        console.log(player1.name + " is the winner!");
-    } else if(winningCharacter === player2.character) {
-        console.log(player2.name + " is the winner!");
-    }
-
 }
