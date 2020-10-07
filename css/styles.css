@@ -10,19 +10,25 @@ body {
     height: 25px;
     margin-bottom: 15px;
     border-radius: 10px;
+    font-size: 14px;
+}
+.new-game-btn:hover {
+    background-color: darkgray;
+    cursor: pointer;
 }
 .row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
-.button {
+.button, .button:hover {
     padding: 20px;
     width: 120px;
     height: 120px;
     flex-basis: 33%;
     background-color: white;
     font-size: 55px;
+    cursor: pointer;
 }
 .board {
     display: none;

@@ -1,4 +1,4 @@
-let currentTurn =  1;
+let currentTurn = 1;
 
 const player1 = {
     name: 'Player 1',
@@ -36,11 +36,15 @@ function createNewGame(event) {
 
 function selectSquare(event) {
     let currentPlayer = checkPlayersTurn()
-    event.target.innerHTML = currentPlayer.character
-    currentPlayer.currentTurn = false;
-    changePlayersTurn()
-    displayPlayerTurn()
-
+    if (!checkIfButtonSelected(event)) {
+        event.target.innerHTML = currentPlayer.character
+        currentPlayer.currentTurn = false;
+        event.target.value = "selected"
+        changePlayersTurn()
+        displayPlayerTurn()
+    } else {
+        alert("This Box was already chosen!! \nPlease Try Again")
+    }
 }
 
 function checkPlayersTurn() {
@@ -61,4 +65,12 @@ function displayPlayerTurn() {
     const currentPlayer = checkPlayersTurn()
     document.querySelector('.turnDisplay')
     .innerHTML = currentPlayer.name + "'s Turn <br> You Are " + currentPlayer.character + "'s"
+}
+
+function checkIfButtonSelected(event) {
+    if (event.target.value === "selected") {
+        return true;
+    } else {
+        false;
+    }
 }
