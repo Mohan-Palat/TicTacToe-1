@@ -3,9 +3,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 .new-game-btn {
+    width: 100px;
+    height: 25px;
     margin-bottom: 15px;
+    border-radius: 10px;
 }
 .row {
     display: flex;
@@ -17,6 +21,8 @@ body {
     width: 120px;
     height: 120px;
     flex-basis: 33%;
+    background-color: white;
+    font-size: 55px;
 }
 .board {
     display: none;

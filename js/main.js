@@ -1,13 +1,27 @@
-console.log("Script has been linked");
+let currentTurn =  1;
 
+const player1 = {
+    name: 'Player 1',
+    character: 'X'
+}
+
+const player2 = {
+    name: 'Player 2',
+    character: 'O'
+}
 
 init()
-
 
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
+
+    //add listeners to buttons on grid
+    buttons = document.querySelectorAll('.button')
+    buttons.forEach(button => {
+        button.addEventListener('click', selectSquare)
+    });
 }
 function createNewGame(event) {
     event.preventDefault()
@@ -17,6 +31,34 @@ function createNewGame(event) {
     } else {
         board.style.display = ""
     }
-    console.log('A new game has been created');
-    document.querySelector('.turnDisplay').innerHTML = "Player 1's Turn"
+    displayPlayerTurn();
+}
+
+function selectSquare(event) {
+    let currentPlayer = checkPlayersTurn()
+    event.target.innerHTML = currentPlayer.character
+    currentPlayer.currentTurn = false;
+    changePlayersTurn()
+    displayPlayerTurn()
+
+}
+
+function checkPlayersTurn() {
+    if(currentTurn === 1) {
+        return player1
+    } else {
+        return player2
+    }
+}
+function changePlayersTurn() {
+    if(currentTurn === 1) {
+        currentTurn = 0;
+    } else {
+        currentTurn = 1;
+    }
+}
+function displayPlayerTurn() {
+    const currentPlayer = checkPlayersTurn()
+    document.querySelector('.turnDisplay')
+    .innerHTML = currentPlayer.name + "'s Turn <br> You Are " + currentPlayer.character + "'s"
 }
