@@ -4,6 +4,13 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    background: url('/img/wood-background-dark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+button:hover {
+    cursor: pointer;
 }
 .new-game-btn {
     width: 100px;
@@ -14,12 +21,6 @@ body {
 }
 .new-game-btn:hover {
     background-color: darkgray;
-    cursor: pointer;
-}
-.row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 }
 .button {
     padding: 20px;
@@ -29,10 +30,15 @@ body {
     background-color: white;
     font-size: 55px;
 }
-.button:hover {
-    cursor: pointer;
-
+.boardform .player1-info button,.boardform .player2-info button {
+    border-radius: 10px;
 }
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .boardForm {
     display: none;
     justify-content: space-around;
@@ -50,12 +56,16 @@ body {
 .player1-info, .player2-info {
     margin-top: 0;
 }
+
 .player1-info .player1-icon, .player2-info .player2-icon {
     font-size: 100px;
+    margin-bottom: 0px;
 }
 .player1-info .player1-name, .player2-info .player2-name {
     font-size: 25px;
+    margin-bottom: 5px;
 }
+
 .input-form {
     display: flex;
     flex-direction: column;

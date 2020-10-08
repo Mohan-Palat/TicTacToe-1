@@ -41,7 +41,6 @@ function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
     }
-    setPlayerIconAndName();
     updateScoreBoard();
     game.turn = 1;
     game.status = "On"
@@ -213,17 +212,6 @@ function updateScoreBoard() {
     let player2P = document.querySelector('.scoreboard .player-2 p')
     player1P.innerHTML = player1.name + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
     player2P.innerHTML = player2.name + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
-}
-function setPlayerIconAndName() {
-    //player1.name = document.querySelector('.player1-name-choice').value;
-    //player2.name = document.querySelector('.player2-name-choice').value;
-    // document.querySelector('.player1-info .player1-name').innerHTML = player1.name;
-    // document.querySelector('.player2-info .player2-name').innerHTML = player2.name;
-    // document.querySelector('.player1-info .player1-icon').innerHTML = player1.character
-    // document.querySelector('.player2-info .player2-icon').innerHTML = player2.character
-
-   
-
 }
 function updatePlayer(event) {
     event.preventDefault()
