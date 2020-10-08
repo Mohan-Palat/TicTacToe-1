@@ -178,6 +178,9 @@ function enableBoard() {
     if (game.board.style.display === "") {
         game.board.style.display = "block"
     }
+    if (document.querySelector('.scoreboard').style.display === "") {
+        document.querySelector('.scoreboard').style.display = "flex"
+    }
 }
 function addScore(player = 0) {
     if(player.name === player1.name) {
