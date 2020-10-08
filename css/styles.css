@@ -5,7 +5,10 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: url('/img/fuji.jpg');
+    background-image:linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ), url('/img/fuji.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
@@ -60,8 +63,9 @@ button:hover {
     justify-content: space-around;
     width: 400px;
     height: 120px;
-    border-style: solid;
     font-size: 20px;
+}
+.player-scoreboard {
 }
 .player1-info, .player2-info {
     margin-top: 0;
@@ -70,6 +74,7 @@ button:hover {
 .player1-info .player1-icon, .player2-info .player2-icon {
     font-size: 100px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 .player1-info .player1-name, .player2-info .player2-name {
     font-size: 25px;

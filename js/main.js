@@ -85,7 +85,7 @@ function changePlayersTurn() {
 function displayPlayerTurn() {
     const currentPlayer = checkPlayersTurn()
     document.querySelector('.turnDisplay')
-    .innerHTML = currentPlayer.name + "'s Turn <br> You Are " + currentPlayer.character + "'s"
+    .innerHTML = currentPlayer.name + "'s Turn " + currentPlayer.character
 }
 function checkIfButtonSelected(event) {
     if (event.target.value === player1.character|| event.target.value === player2.character) {
@@ -210,8 +210,8 @@ function addScore(player = 0) {
 function updateScoreBoard() {
     let player1P = document.querySelector('.scoreboard .player-1 p')
     let player2P = document.querySelector('.scoreboard .player-2 p')
-    player1P.innerHTML = player1.name + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
-    player2P.innerHTML = player2.name + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
+    player1P.innerHTML = player1.name +" "+ player1.character + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
+    player2P.innerHTML = player2.name +" "+ player2.character + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
 }
 function updatePlayer(event) {
     event.preventDefault()
