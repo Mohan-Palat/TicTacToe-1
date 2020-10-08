@@ -1,10 +1,11 @@
 body {
+    font-family: 'Lora', serif;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: url('/img/wood-background-dark.jpg');
+    background: url('/img/starry-mountain.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
@@ -20,7 +21,7 @@ button:hover {
     font-size: 14px;
 }
 .new-game-btn:hover {
-    background-color: darkgray;
+    background-color: darkgrey;
 }
 .button {
     padding: 20px;
@@ -30,8 +31,14 @@ button:hover {
     background-color: white;
     font-size: 55px;
 }
+.button:hover {
+    background-color: lightgrey;
+}
 .boardform .player1-info button,.boardform .player2-info button {
     border-radius: 10px;
+}
+.boardform .player1-info button:hover,.boardform .player2-info button:hover {
+    background-color: darkgrey;
 }
 .row {
     display: flex;

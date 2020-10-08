@@ -88,7 +88,7 @@ function displayPlayerTurn() {
     .innerHTML = currentPlayer.name + "'s Turn <br> You Are " + currentPlayer.character + "'s"
 }
 function checkIfButtonSelected(event) {
-    if (event.target.value == 'X' || event.target.value == 'O') {
+    if (event.target.value === player1.character|| event.target.value === player2.character) {
         return true;
     } else {
         false;
