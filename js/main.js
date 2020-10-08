@@ -1,14 +1,15 @@
-let currentTurn = 1;
+let currentTurn = 1
+let gameStatus;
+let boardForm = document.querySelector('.boardForm')
+
 const player1 = {
     name: 'Player 1',
     character: 'X'
 }
-
 const player2 = {
     name: 'Player 2',
     character: 'O'
 }
-
 init()
 
 function init() {
@@ -16,37 +17,42 @@ function init() {
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
 
-    //add listeners to buttons on grid
-    buttons = document.querySelectorAll('.button')
-    buttons.forEach(button => {
-        button.addEventListener('click', selectSquare)
-    });
+    //add listeners to form
+    document.querySelector('.boardForm')
+    .addEventListener('click', selectSquare)
 }
 function createNewGame(event) {
     event.preventDefault()
+    currentTurn = 1;
+    gameStatus = "On"
+    buttons = document.querySelectorAll('.button')
+    buttons.forEach( (button, index) => {
+        button.innerHTML = ''
+        button.value = index + 1
+    })
+
     const board = document.querySelector('.board')
     if (board.style.display === "") {
         board.style.display = "block"
-    } else {
-        board.style.display = ""
     }
     displayPlayerTurn();
 }
-
 function selectSquare(event) {
+    event.preventDefault();
     let currentPlayer = checkPlayersTurn()
-    if (!checkIfButtonSelected(event)) {
+    if (!checkIfButtonSelected(event) && gameStatus === "On" ) {
         event.target.innerHTML = currentPlayer.character
         currentPlayer.currentTurn = false;
         event.target.value = currentPlayer.character
+        displayPlayerTurn()
         checkForWinner()
         changePlayersTurn()
-        displayPlayerTurn()
+    } else if (gameStatus === "Off") {
+        alert("The game has ended! Select New Game to play again")
     } else {
         alert("This Box was already chosen!! \nPlease Choose Another Box")
     }
 }
-
 function checkPlayersTurn() {
     if(currentTurn === 1) {
         return player1
@@ -66,24 +72,12 @@ function displayPlayerTurn() {
     document.querySelector('.turnDisplay')
     .innerHTML = currentPlayer.name + "'s Turn <br> You Are " + currentPlayer.character + "'s"
 }
-
 function checkIfButtonSelected(event) {
     if (event.target.value == 'X' || event.target.value == 'O') {
         return true;
     } else {
         false;
     }
-}
-
-function displayWinner(winningCharacter = 0) {
-    if(winningCharacter === player1.character) {
-        console.log(player1.name + " is the winner!");
-    } else if(winningCharacter === player2.character) {
-        console.log(player2.name + " is the winner!");
-    } else {
-        console.log("The Game is a Tie!!");
-    }
-
 }
 function checkIfArrayComplete(valueArray) {
     let count = 0;
@@ -155,3 +149,41 @@ function checkForWinner() {
     // index 0, 4, 8 match - done
     // index 2, 4, 6 match - done
 }
+function displayWinner(winningCharacter = 0) {
+    if(winningCharacter === player1.character) {
+        document.querySelector('.turnDisplay').innerHTML = player1.name + " is the winner!";
+        endGame();
+    } else if(winningCharacter === player2.character) {
+        document.querySelector('.turnDisplay').innerHTML = player2.name + " is the winner!";
+        endGame();
+    } else {
+        document.querySelector('.turnDisplay').innerHTML = "The Game is a Tie!!";
+        endGame();
+    }
+}
+function endGame() {
+    gameStatus = "Off";
+}
+
+
+
+// Done
+// As a user, I should be able to start a new tic tac toe game
+
+// Done
+// As a user, I should be able to click on a square to add X first and then O, and so on
+
+// Done
+// As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next
+
+// Done
+// As a user, I should not be able to click the same square twice
+
+//Done
+// As a user, I should be shown a message when I win, lose or tie
+
+
+// As a user, I should not be able to continue playing once I win, lose, or tie
+
+//Done
+// As a user, I should be able to play the game again without refreshing the page
