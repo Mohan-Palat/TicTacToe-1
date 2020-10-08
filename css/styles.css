@@ -30,6 +30,6 @@ body {
     font-size: 55px;
     cursor: pointer;
 }
-.board {
+.boardForm {
     display: none;
 }
