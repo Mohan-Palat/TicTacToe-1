@@ -19,6 +19,8 @@ button:hover {
     margin-bottom: 15px;
     border-radius: 10px;
     font-size: 14px;
+    background-color: transparent;
+    color: white;
 }
 .new-game-btn:hover {
     background-color: darkgrey;
@@ -29,16 +31,17 @@ button:hover {
     height: 120px;
     flex-basis: 33%;
     background-color: white;
+    background-color: transparent;
     font-size: 55px;
-}
-.button:hover {
-    background-color: lightgrey;
 }
 .boardform .player1-info button,.boardform .player2-info button {
     border-radius: 10px;
+    background-color: transparent;
+    color: white;
 }
 .boardform .player1-info button:hover,.boardform .player2-info button:hover {
     background-color: darkgrey;
+    color: white;
 }
 .row {
     display: flex;
