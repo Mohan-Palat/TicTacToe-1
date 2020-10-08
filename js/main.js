@@ -12,21 +12,25 @@ const game = {
 }
 const player1 = {
     name: 'Player 1',
-    character: 'X'
+    character: '🐅' 
 }
 const player2 = {
     name: 'Player 2',
-    character: 'O'
+    character: '🦦'
 }
 
 init()
+setPlayerIcon();
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
 
-    //add listeners to form
-    game.board.addEventListener('click', selectSquare)
+    //add listeners to buttons
+    buttons = document.querySelectorAll('.button')
+    buttons.forEach(button => { 
+        button.addEventListener('click', selectSquare)
+    })
 }
 function createNewGame(event) {
     event.preventDefault()
@@ -85,7 +89,7 @@ function checkIfButtonSelected(event) {
 function checkIfArrayComplete(valueArray) {
     let count = 0;
     valueArray.forEach(element => {
-        if (element === 'O' || element === 'X') {
+        if (element === player1.character || element === player2.character) {
             count = count + 1;
         }
     })
@@ -155,12 +159,12 @@ function checkForWinner() {
 function displayWinner(winningCharacter = 0) {
     switch(winningCharacter) {
         case player1.character:
-            document.querySelector('.turnDisplay').innerHTML = player1.name + " is the winner!";
+            document.querySelector('.turnDisplay').innerHTML = player1.name + " " + player1.character + " is the winner!";
             addScore(player1)
             endGame();
             break;
         case player2.character:
-            document.querySelector('.turnDisplay').innerHTML = player2.name + " is the winner!";
+            document.querySelector('.turnDisplay').innerHTML = player2.name + " " + player2.character + " is the winner!";
             addScore(player2)
             endGame();
             break;
@@ -190,8 +194,8 @@ function addScore(player = 0) {
         game.scoreBoard.player1[1] += 1
         game.scoreBoard.player2[0] += 1
     } else {
-        game.scoreBoard.player1[1] += 1
-        game.scoreBoard.player2[1] += 1
+        game.scoreBoard.player1[2] += 1
+        game.scoreBoard.player2[2] += 1
     }
     updateScoreBoard();
 }
@@ -200,6 +204,11 @@ function updateScoreBoard() {
     let player2P = document.querySelector('.scoreboard .player-2 p')
     player1P.innerHTML = "Player 1 <br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
     player2P.innerHTML = "Player 2 <br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
+}
+function setPlayerIcon() {
+    document.querySelector('.player-info .player1-info p').innerHTML = player1.character
+    document.querySelector('.player-info .player2-info p').innerHTML = player2.character
+
 }
 // Done
 // As a user, I should be able to start a new tic tac toe game
@@ -217,7 +226,10 @@ function updateScoreBoard() {
 // As a user, I should be able to play the game again without refreshing the page
 
 // Potential Extra Tic Tac Toe Features
+
+// Done
 // Keep track of multiple game rounds with a win, lose and tie counter
+
 // Allow players to customize their tokens (X, O, name, picture, etc)
 // Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
 // Involve Audio in your game

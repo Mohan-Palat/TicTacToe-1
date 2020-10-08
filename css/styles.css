@@ -42,3 +42,7 @@ body {
     border-style: solid;
     font-size: 20px;
 }
+.player1-info p, .player2-info p{
+    font-size: 100px;
+    width: 100px;
+}
