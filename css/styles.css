@@ -21,17 +21,22 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
 }
-.button, .button:hover {
+.button {
     padding: 20px;
     width: 120px;
     height: 120px;
     flex-basis: 33%;
     background-color: white;
     font-size: 55px;
+}
+.button:hover {
     cursor: pointer;
+
 }
 .boardForm {
     display: none;
+    justify-content: space-around;
+    width: 100%;
 }
 .scoreboard {
     text-align: left;
@@ -42,7 +47,12 @@ body {
     border-style: solid;
     font-size: 20px;
 }
-.player1-info p, .player2-info p{
+.player1-info, .player2-info {
+    margin-top: 0;
+}
+.player1-info .player1-icon, .player2-info .player2-icon {
     font-size: 100px;
-    width: 100px;
+}
+.player1-info .player1-name, .player2-info .player2-name {
+    font-size: 25px;
 }

@@ -11,16 +11,15 @@ const game = {
     }
 }
 const player1 = {
-    name: 'Player 1',
+    name: 'Stephen',
     character: '🐅' 
 }
 const player2 = {
-    name: 'Player 2',
+    name: 'Bob',
     character: '🦦'
 }
 
 init()
-setPlayerIcon();
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
@@ -31,9 +30,11 @@ function init() {
     buttons.forEach(button => { 
         button.addEventListener('click', selectSquare)
     })
+    setPlayerIcon();
 }
 function createNewGame(event) {
     event.preventDefault()
+    updateScoreBoard();
     game.turn = 1;
     game.status = "On"
     buttons = document.querySelectorAll('.button')
@@ -180,7 +181,7 @@ function endGame() {
 }
 function enableBoard() {
     if (game.board.style.display === "") {
-        game.board.style.display = "block"
+        game.board.style.display = "flex"
     }
     if (document.querySelector('.scoreboard').style.display === "") {
         document.querySelector('.scoreboard').style.display = "flex"
@@ -202,12 +203,14 @@ function addScore(player = 0) {
 function updateScoreBoard() {
     let player1P = document.querySelector('.scoreboard .player-1 p')
     let player2P = document.querySelector('.scoreboard .player-2 p')
-    player1P.innerHTML = "Player 1 <br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
-    player2P.innerHTML = "Player 2 <br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
+    player1P.innerHTML = player1.name + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
+    player2P.innerHTML = player2.name + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
 }
 function setPlayerIcon() {
-    document.querySelector('.player-info .player1-info p').innerHTML = player1.character
-    document.querySelector('.player-info .player2-info p').innerHTML = player2.character
+    document.querySelector('.player1-info .player1-name').innerHTML = player1.name;
+    document.querySelector('.player2-info .player2-name').innerHTML = player2.name;
+    document.querySelector('.player1-info .player1-icon').innerHTML = player1.character
+    document.querySelector('.player2-info .player2-icon').innerHTML = player2.character
 
 }
 // Done
