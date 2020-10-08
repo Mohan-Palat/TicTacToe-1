@@ -56,3 +56,21 @@ body {
 .player1-info .player1-name, .player2-info .player2-name {
     font-size: 25px;
 }
+.input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.player-inputs {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    border: solid;
+    font-size: 22px;
+}
+#player1-choice, #player2-choice {
+    margin: 10px;
+}

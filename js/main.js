@@ -11,14 +11,13 @@ const game = {
     }
 }
 const player1 = {
-    name: 'Stephen',
-    character: '🐅' 
+    name: document.querySelector('.player1-name').innerHTML,
+    character: document.querySelector('.player1-icon').innerHTML
 }
 const player2 = {
-    name: 'Bob',
-    character: '🦦'
+    name: document.querySelector('.player2-name').innerHTML,
+    character: document.querySelector('.player2-icon').innerHTML
 }
-
 init()
 function init() {
     //add listener to 'New game button'
@@ -30,10 +29,19 @@ function init() {
     buttons.forEach(button => { 
         button.addEventListener('click', selectSquare)
     })
-    setPlayerIcon();
+
+    //add update button listeners
+    document.querySelector('.update-player-icon-1').addEventListener('click',updatePlayer)
+    document.querySelector('.update-player-name-1').addEventListener('click',updatePlayer)
+    document.querySelector('.update-player-icon-2').addEventListener('click',updatePlayer)
+    document.querySelector('.update-player-name-2').addEventListener('click',updatePlayer)
+
 }
 function createNewGame(event) {
-    event.preventDefault()
+    if(event != undefined) {
+        event.preventDefault()
+    }
+    setPlayerIconAndName();
     updateScoreBoard();
     game.turn = 1;
     game.status = "On"
@@ -206,12 +214,24 @@ function updateScoreBoard() {
     player1P.innerHTML = player1.name + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
     player2P.innerHTML = player2.name + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
 }
-function setPlayerIcon() {
-    document.querySelector('.player1-info .player1-name').innerHTML = player1.name;
-    document.querySelector('.player2-info .player2-name').innerHTML = player2.name;
-    document.querySelector('.player1-info .player1-icon').innerHTML = player1.character
-    document.querySelector('.player2-info .player2-icon').innerHTML = player2.character
+function setPlayerIconAndName() {
+    //player1.name = document.querySelector('.player1-name-choice').value;
+    //player2.name = document.querySelector('.player2-name-choice').value;
+    // document.querySelector('.player1-info .player1-name').innerHTML = player1.name;
+    // document.querySelector('.player2-info .player2-name').innerHTML = player2.name;
+    // document.querySelector('.player1-info .player1-icon').innerHTML = player1.character
+    // document.querySelector('.player2-info .player2-icon').innerHTML = player2.character
 
+   
+
+}
+function updatePlayer(event) {
+    event.preventDefault()
+    player1.name = document.querySelector('.player1-name').innerHTML
+    player2.name = document.querySelector('.player2-name').innerHTML
+    player1.character = document.querySelector('.player1-icon').innerHTML
+    player2.character = document.querySelector('.player2-icon').innerHTML
+    createNewGame();
 }
 // Done
 // As a user, I should be able to start a new tic tac toe game
@@ -229,7 +249,6 @@ function setPlayerIcon() {
 // As a user, I should be able to play the game again without refreshing the page
 
 // Potential Extra Tic Tac Toe Features
-
 // Done
 // Keep track of multiple game rounds with a win, lose and tie counter
 
