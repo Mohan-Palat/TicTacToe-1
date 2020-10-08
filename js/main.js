@@ -3,7 +3,12 @@
 const game = {
     turn: 1,
     status: "On",
-    board: document.querySelector('.boardForm')
+    board: document.querySelector('.boardForm'),
+    scoreBoard: {
+        element: document.querySelector('.scoreboard'),
+        player1: [0,0,0],
+        player2: [0,0,0]
+    }
 }
 const player1 = {
     name: 'Player 1',
@@ -42,9 +47,9 @@ function selectSquare(event) {
         event.target.innerHTML = currentPlayer.character
         currentPlayer.currentTurn = false;
         event.target.value = currentPlayer.character
+        changePlayersTurn()
         displayPlayerTurn()
         checkForWinner()
-        changePlayersTurn()
     } else if (game.status === "Off") {
         alert("The game has ended! Select New Game to play again")
     } else {
@@ -151,14 +156,17 @@ function displayWinner(winningCharacter = 0) {
     switch(winningCharacter) {
         case player1.character:
             document.querySelector('.turnDisplay').innerHTML = player1.name + " is the winner!";
+            addScore(player1)
             endGame();
             break;
         case player2.character:
             document.querySelector('.turnDisplay').innerHTML = player2.name + " is the winner!";
+            addScore(player2)
             endGame();
             break;
         default:
             document.querySelector('.turnDisplay').innerHTML = "The Game is a Tie!!";
+            addScore()
             endGame();
             break;
     }
@@ -171,8 +179,25 @@ function enableBoard() {
         game.board.style.display = "block"
     }
 }
-
-
+function addScore(player = 0) {
+    if(player.name === player1.name) {
+        game.scoreBoard.player1[0] += 1
+        game.scoreBoard.player2[1] += 1
+    } else if(player.name === player2.name) {
+        game.scoreBoard.player1[1] += 1
+        game.scoreBoard.player2[0] += 1
+    } else {
+        game.scoreBoard.player1[1] += 1
+        game.scoreBoard.player2[1] += 1
+    }
+    updateScoreBoard();
+}
+function updateScoreBoard() {
+    let player1P = document.querySelector('.scoreboard .player-1 p')
+    let player2P = document.querySelector('.scoreboard .player-2 p')
+    player1P.innerHTML = "Player 1 <br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
+    player2P.innerHTML = "Player 2 <br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
+}
 // Done
 // As a user, I should be able to start a new tic tac toe game
 // Done

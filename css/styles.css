@@ -33,3 +33,12 @@ body {
 .boardForm {
     display: none;
 }
+.scoreboard {
+    text-align: left;
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    height: 120px;
+    border-style: solid;
+    font-size: 20px;
+}
