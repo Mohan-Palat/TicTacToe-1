@@ -19,13 +19,14 @@ button:hover {
     cursor: pointer;
 }
 .new-game-btn {
-    width: 100px;
-    height: 25px;
     margin-bottom: 15px;
+    font-size: 20px;
+    width: 125px;
+    height: 40px;
     border-radius: 10px;
-    font-size: 14px;
     background-color: transparent;
     color: white;
+    border-color: white;
 }
 .new-game-btn:hover {
     background-color: darkgrey;
@@ -116,13 +117,10 @@ button:hover {
     }
     .button {
         font-size: 40px;
-        height: 60px;
-        width: 60px;
+        height: 50px;
+        width: 50px;
     }
     .boardform .player1-info button,.boardform .player2-info button {
-        font-size: 10px;
-    }
-    .new-game-btn {
         font-size: 10px;
     }
     .scoreboard {
