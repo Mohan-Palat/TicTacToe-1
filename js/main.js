@@ -289,9 +289,6 @@ function clearBoardButtons(){
         button.value = "placeholder" + (index + 1)
     })
 }
-setInterval(function() {
-    document.querySelector('#myAudio').play()
-}, 5);
 // Potential Extra Tic Tac Toe Features
 // Done
 // Keep track of multiple game rounds with a win, lose and tie counter
