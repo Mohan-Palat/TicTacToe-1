@@ -46,22 +46,14 @@ function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
     }
-    if(localStorage.getItem('scoreboard') != null) {
-        retrieveLocalGameStorage()
-    }
-    if(localStorage.getItem('player1') != null) {
-        retrieveLocalPlayerStorage()
-    }
-    updateGameBoard();
     game.turn = 1;
     game.status = "On"
-    buttons = document.querySelectorAll('.button')
-    buttons.forEach( (button, index) => {
-        button.innerHTML = ''
-        button.value = "placeholder" + (index + 1)
-    })
-    enableBoard();
-    displayPlayerTurn();
+    retrieveLocalPlayerStorage()
+    retrieveLocalGameStorage()
+    clearBoardButtons()
+    enableBoard()
+    updateGameBoard()
+    displayPlayerTurn()
 }
 // function that triggers when a square is selected on the board
 // checks players turn, checks square is selected, checks if gamestatus is on
@@ -72,7 +64,6 @@ function selectSquare(event) {
     const currentPlayer = checkPlayersTurn()
     if (!checkIfButtonSelected(event, currentPlayer) && game.status === "On" ) {
         event.target.innerHTML = currentPlayer.character
-        currentPlayer.currentTurn = false;
         event.target.value = currentPlayer.character
         changePlayersTurn()
         displayPlayerTurn()
@@ -281,14 +272,26 @@ function storeScoreboardLocalStorage() {
     localStorage.setItem("scoreboard", JSON.stringify(game.scoreBoard))
 }
 function retrieveLocalGameStorage() {
-    game.scoreBoard = JSON.parse(localStorage.getItem('scoreboard'))
+    if(localStorage.getItem('scoreboard') != null) {
+        game.scoreBoard = JSON.parse(localStorage.getItem('scoreboard'))
+    }
 }
 function retrieveLocalPlayerStorage() {
-    player1 = JSON.parse(localStorage.getItem('player1'))
-    player2 = JSON.parse(localStorage.getItem('player2'))
-
+    if(localStorage.getItem('player1') != null) {
+        player1 = JSON.parse(localStorage.getItem('player1'))
+        player2 = JSON.parse(localStorage.getItem('player2'))
+    }
 }
-
+function clearBoardButtons(){
+    buttons = document.querySelectorAll('.button')
+    buttons.forEach( (button, index) => {
+        button.innerHTML = ''
+        button.value = "placeholder" + (index + 1)
+    })
+}
+setInterval(function() {
+    document.querySelector('#myAudio').play()
+}, 5);
 // Potential Extra Tic Tac Toe Features
 // Done
 // Keep track of multiple game rounds with a win, lose and tie counter
@@ -298,8 +301,8 @@ function retrieveLocalPlayerStorage() {
 // Get inventive with your styling e.g. use hover effects or animations
 // Done 
 // Make your site fully responsive so that it is playable from a mobile phone
-
-
+// Done
 // Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
+
 // Involve Audio in your game
 // Create an AI opponent: teach JavaScript to play an unbeatable game against you
