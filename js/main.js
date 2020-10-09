@@ -1,6 +1,5 @@
-// Create Game objects
+// Create global objects
 // Represents the Game, player 1, player 2
-
 const game = {
     turn: 1,
     status: "On",
@@ -19,16 +18,16 @@ const player2 = {
     name: document.querySelector('.player2-name').innerHTML,
     character: document.querySelector('.player2-icon').innerHTML
 }
-init()
 // init function to be ran first
 // Adds listeners to elements on page
+init()
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
 
     //add listeners to buttons
-    buttons = document.querySelectorAll('.button')
+    const buttons = document.querySelectorAll('.button')
     buttons.forEach(button => { 
         button.addEventListener('click', selectSquare)
     })
@@ -63,7 +62,7 @@ function createNewGame(event) {
 // changes turn, displays turn, checks for winner
 function selectSquare(event) {
     event.preventDefault();
-    let currentPlayer = checkPlayersTurn()
+    const currentPlayer = checkPlayersTurn()
     if (!checkIfButtonSelected(event) && game.status === "On" ) {
         event.target.innerHTML = currentPlayer.character
         currentPlayer.currentTurn = false;
@@ -121,7 +120,7 @@ function checkIfArrayComplete(valueArray) {
 // adds button values to an array, depending on values in certain indexes tries to find a winner
 // calls the displayWinner function with the characters symbol
 function checkForWinner() {
-    buttons = document.querySelectorAll('.button')
+    const buttons = document.querySelectorAll('.button')
     let valueArray = []
     buttons.forEach( (button) => {
        valueArray.push(button.value)
@@ -233,8 +232,8 @@ function addScore(player = 0) {
 }
 // function that updates the scoreBoard based on the players scores set in their objects
 function updateScoreBoard() {
-    let player1P = document.querySelector('.scoreboard .player-1 p')
-    let player2P = document.querySelector('.scoreboard .player-2 p')
+    const player1P = document.querySelector('.scoreboard .player-1 p')
+    const player2P = document.querySelector('.scoreboard .player-2 p')
     player1P.innerHTML = player1.name +" "+ player1.character + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
     player2P.innerHTML = player2.name +" "+ player2.character + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
 }
@@ -247,20 +246,7 @@ function updatePlayer(event) {
     player2.character = document.querySelector('.player2-icon').innerHTML
     createNewGame();
 }
-// Done
-// As a user, I should be able to start a new tic tac toe game
-// Done
-// As a user, I should be able to click on a square to add X first and then O, and so on
-// Done
-// As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next
-// Done
-// As a user, I should not be able to click the same square twice
-//Done
-// As a user, I should be shown a message when I win, lose or tie
-//Done
-// As a user, I should not be able to continue playing once I win, lose, or tie
-//Done
-// As a user, I should be able to play the game again without refreshing the page
+
 
 // Potential Extra Tic Tac Toe Features
 // Done

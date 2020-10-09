@@ -65,7 +65,8 @@ button:hover {
     height: 120px;
     font-size: 20px;
 }
-.player-scoreboard {
+.player-1 p, .player-2 p{
+    margin-top: 0px;
 }
 .player1-info, .player2-info {
     margin-top: 0;
@@ -99,3 +100,4 @@ button:hover {
 #player1-choice, #player2-choice {
     margin: 10px;
 }
+
