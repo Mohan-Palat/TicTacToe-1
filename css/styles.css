@@ -130,4 +130,7 @@ button:hover {
     .turnDisplay {
         font-size: 15px;
     }
+    .new-game-btn {
+        font-size: 18px;
+    }
 }
