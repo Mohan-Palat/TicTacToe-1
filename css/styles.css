@@ -117,8 +117,10 @@ button:hover {
         height: 70px;
         width: 70px;
     }
-
     .boardform .player1-info button,.boardform .player2-info button {
         font-size: 10px;
-}
+    }
+    .new-game-btn {
+        font-size: 10px;
+    }
 }
