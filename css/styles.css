@@ -39,6 +39,7 @@ button:hover {
     background-color: transparent;
     color: white;
     font-size: 90px;
+    padding: 0;
 }
 
 .boardform .player1-info button,.boardform .player2-info button {
@@ -131,6 +132,6 @@ button:hover {
         font-size: 15px;
     }
     .new-game-btn {
-        font-size: 18px;
+        font-size: 16px;
     }
 }
