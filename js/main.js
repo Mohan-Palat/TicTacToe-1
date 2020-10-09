@@ -26,6 +26,9 @@ function init() {
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
 
+    //add listner to sound button
+    document.querySelector('.sound-button')
+    .addEventListener('click', enableAudio)
     //add listeners to buttons
     const buttons = document.querySelectorAll('.button')
     buttons.forEach(button => { 
@@ -38,7 +41,6 @@ function init() {
 
     //add listener to reset-score button
     document.querySelector('.reset-score').addEventListener('click',resetScore)
-
 }
 // function to initalize the game
 // updates scoreboard, sets the turn, game status, and sets/resets the game board
@@ -288,6 +290,17 @@ function clearBoardButtons(){
         button.innerHTML = ''
         button.value = "placeholder" + (index + 1)
     })
+}
+function enableAudio(event) {
+    let volcanoSound = document.querySelector('.volcano-mp3')
+    let volanoSoundButtonStatus = document.querySelector('.sound-button').innerHTML
+    if (volanoSoundButtonStatus === "Sound On") {
+        volcanoSound.play()
+        document.querySelector('.sound-button').innerHTML = "Sound Off"
+    } else {
+        volcanoSound.pause()
+        document.querySelector('.sound-button').innerHTML = "Sound On"
+    }
 }
 // Potential Extra Tic Tac Toe Features
 // Done
