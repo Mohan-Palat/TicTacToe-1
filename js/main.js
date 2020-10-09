@@ -294,12 +294,12 @@ function clearBoardButtons(){
 function enableAudio(event) {
     let volcanoSound = document.querySelector('.volcano-mp3')
     let volanoSoundButtonStatus = document.querySelector('.sound-button').innerHTML
-    if (volanoSoundButtonStatus === "Sound On") {
+    if (volanoSoundButtonStatus === "Sound Off") {
         volcanoSound.play()
-        document.querySelector('.sound-button').innerHTML = "Sound Off"
+        document.querySelector('.sound-button').innerHTML = "Sound On"
     } else {
         volcanoSound.pause()
-        document.querySelector('.sound-button').innerHTML = "Sound On"
+        document.querySelector('.sound-button').innerHTML = "Sound Off"
     }
 }
 // Potential Extra Tic Tac Toe Features
