@@ -29,15 +29,15 @@ button:hover {
     background-color: darkgrey;
 }
 .button {
-    padding: 20px;
     width: 120px;
     height: 120px;
     flex-basis: 33%;
     background-color: white;
     background-color: transparent;
     color: white;
-    font-size: 55px;
+    font-size: 90px;
 }
+
 .boardform .player1-info button,.boardform .player2-info button {
     border-radius: 10px;
     background-color: transparent;
@@ -113,6 +113,12 @@ button:hover {
         margin-bottom: 5px;
     }
     .button {
-        font-size: 22px;
+        font-size: 40px;
+        height: 80px;
+        width: 80px;
     }
+
+    .boardform .player1-info button,.boardform .player2-info button {
+        font-size: 10px;
+}
 }
