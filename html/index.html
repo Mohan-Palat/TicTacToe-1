@@ -14,7 +14,7 @@
     <form class="boardForm">
         <div class="player1-info">
             <p contentEditable="true" class="player1-name">Player 1</p>
-            <p contentEditable="true" class="player1-icon">🏔</p>
+            <p onkeypress="return (this.innerHTML.length <= 0)" contentEditable="true" class="player1-icon" maxlength="1">🏔</p>
             <button class="update-player-1">Update Player</button>
         </div>
         <div class="board">
@@ -36,7 +36,7 @@
         </div>
         <div class="player2-info">
             <p contentEditable="true" class="player2-name">Player 2</p>
-            <p contentEditable="true" class="player2-icon">🌋</p>
+            <p onkeypress="return (this.innerHTML.length <= 0)" contentEditable="true" class="player2-icon" maxlength="1">🌋</p>
             <button class="update-player-2">Update Player</button>
         </div>
     </form>

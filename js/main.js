@@ -134,8 +134,8 @@ function checkForWinner() {
         valueArray[3] === valueArray[5] ) {
         displayWinner(valueArray[3])
     } else if(valueArray[6] === valueArray[7] && 
-        valueArray[8] === valueArray[9] && 
-        valueArray[6] === valueArray[9] ) {
+        valueArray[7] === valueArray[8] && 
+        valueArray[6] === valueArray[8] ) {
         displayWinner(valueArray[6])
     //====== vertical matches
     } else if(valueArray[0] === valueArray[3] && 
@@ -253,9 +253,10 @@ function updatePlayer(event) {
 // Allow players to customize their tokens (X, O, name, picture, etc)
 // Done
 // Get inventive with your styling e.g. use hover effects or animations
+// Done 
+// Make your site fully responsive so that it is playable from a mobile phone
 
 
 // Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
 // Involve Audio in your game
 // Create an AI opponent: teach JavaScript to play an unbeatable game against you
-// Make your site fully responsive so that it is playable from a mobile phone
