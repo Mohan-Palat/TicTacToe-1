@@ -36,6 +36,9 @@ function init() {
     document.querySelector('.update-player-1').addEventListener('click',updatePlayer)
     document.querySelector('.update-player-2').addEventListener('click',updatePlayer)
 
+    //add listener to reset-score button
+    document.querySelector('.reset-score').addEventListener('click',resetScore)
+
 }
 // function to initalize the game
 // updates scoreboard, sets the turn, game status, and sets/resets the game board
@@ -218,6 +221,9 @@ function enableBoard() {
     if (document.querySelector('.scoreboard').style.display === "") {
         document.querySelector('.scoreboard').style.display = "flex"
     }
+    if (document.querySelector('.reset-score').style.display === "") {
+        document.querySelector('.reset-score').style.display = "flex"
+    }
 }
 // function that addscore for a player to their player object
 function addScore(player = 0) {
@@ -254,6 +260,17 @@ function updatePlayer(event) {
     player2.character = document.querySelector('.player2-icon').innerHTML
     storePlayerLocalStorage()
     createNewGame();
+}
+function resetScore(){
+    game.scoreBoard.player1[0] = 0;
+    game.scoreBoard.player1[1] = 0;
+    game.scoreBoard.player1[2] = 0;
+    game.scoreBoard.player2[0] = 0;
+    game.scoreBoard.player2[1] = 0;
+    game.scoreBoard.player2[2] = 0;
+    updateGameBoard();
+    storeScoreboardLocalStorage();
+
 }
 // functions to store and retrieve player data and scoreboard data
 function storePlayerLocalStorage() {

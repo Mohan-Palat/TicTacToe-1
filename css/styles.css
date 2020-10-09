@@ -28,7 +28,9 @@ button:hover {
     color: white;
     border-color: white;
 }
-.new-game-btn:hover {
+.new-game-btn:hover, .reset-score:hover, 
+.boardform .player1-info button:hover,
+.boardform .player2-info button:hover {
     background-color: darkgrey;
 }
 .button {
@@ -41,14 +43,15 @@ button:hover {
     font-size: 90px;
     padding: 0;
 }
-
-.boardform .player1-info button,.boardform .player2-info button {
+.reset-score {
+    display: none;
     border-radius: 10px;
     background-color: transparent;
     color: white;
 }
-.boardform .player1-info button:hover,.boardform .player2-info button:hover {
-    background-color: darkgrey;
+.boardform .player1-info button,.boardform .player2-info button {
+    border-radius: 10px;
+    background-color: transparent;
     color: white;
 }
 .row {
