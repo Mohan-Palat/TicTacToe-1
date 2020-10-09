@@ -102,3 +102,17 @@ button:hover {
     margin: 10px;
 }
 
+@media only screen and (max-width: 600px) {
+    .player1-info .player1-icon, .player2-info .player2-icon {
+        font-size: 40px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+    .player1-info .player1-name, .player2-info .player2-name {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    .button {
+        font-size: 22px;
+    }
+}
