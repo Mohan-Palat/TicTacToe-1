@@ -1,5 +1,6 @@
 // Create Game objects
 // Represents the Game, player 1, player 2
+
 const game = {
     turn: 1,
     status: "On",
@@ -19,6 +20,8 @@ const player2 = {
     character: document.querySelector('.player2-icon').innerHTML
 }
 init()
+// init function to be ran first
+// Adds listeners to elements on page
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
@@ -37,6 +40,8 @@ function init() {
     document.querySelector('.update-player-name-2').addEventListener('click',updatePlayer)
 
 }
+// function to initalize the game
+// updates scoreboard, sets the turn, game status, and sets/resets the game board
 function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
@@ -52,6 +57,10 @@ function createNewGame(event) {
     enableBoard();
     displayPlayerTurn();
 }
+// function that triggers when a square is selected on the board
+// checks players turn, checks square is selected, checks if gamestatus is on
+// sets the buttons value on click
+// changes turn, displays turn, checks for winner
 function selectSquare(event) {
     event.preventDefault();
     let currentPlayer = checkPlayersTurn()
@@ -68,6 +77,7 @@ function selectSquare(event) {
         alert("This Box was already chosen!! \nPlease Choose Another Box")
     }
 }
+// function that returns which players turn it is
 function checkPlayersTurn() {
     if(game.turn === 1) {
         return player1
@@ -75,6 +85,7 @@ function checkPlayersTurn() {
         return player2
     }
 }
+// function that changes the currentTurn from player1 to player2 and vice versa
 function changePlayersTurn() {
     if(game.turn === 1) {
         game.turn = 0;
@@ -82,11 +93,13 @@ function changePlayersTurn() {
         game.turn = 1;
     }
 }
+//function that displays which players turn it is under the board
 function displayPlayerTurn() {
     const currentPlayer = checkPlayersTurn()
     document.querySelector('.turnDisplay')
     .innerHTML = currentPlayer.name + "'s Turn " + currentPlayer.character
 }
+//function that checks if a button on the board has already been selected
 function checkIfButtonSelected(event) {
     if (event.target.value === player1.character|| event.target.value === player2.character) {
         return true;
@@ -94,6 +107,7 @@ function checkIfButtonSelected(event) {
         false;
     }
 }
+// function that checks if every box is selected and no winner reached (used for Ties)
 function checkIfArrayComplete(valueArray) {
     let count = 0;
     valueArray.forEach(element => {
@@ -103,6 +117,9 @@ function checkIfArrayComplete(valueArray) {
     })
     return count
 }
+// function that holds the logic for checking if there is a winner after each turn
+// adds button values to an array, depending on values in certain indexes tries to find a winner
+// calls the displayWinner function with the characters symbol
 function checkForWinner() {
     buttons = document.querySelectorAll('.button')
     let valueArray = []
@@ -164,6 +181,10 @@ function checkForWinner() {
     // index 0, 4, 8 match - done
     // index 2, 4, 6 match - done
 }
+// function that receives the winning character of the player 
+// calls addScore with that player 
+// changes display to show who won
+// calls the endGame function
 function displayWinner(winningCharacter = 0) {
     switch(winningCharacter) {
         case player1.character:
@@ -183,9 +204,11 @@ function displayWinner(winningCharacter = 0) {
             break;
     }
 }
+// function that sets the gameStatus to off - avoids continued playing
 function endGame() {
     game.status = "Off";
 }
+// function that displays the game board and scoreBoard
 function enableBoard() {
     if (game.board.style.display === "") {
         game.board.style.display = "flex"
@@ -194,6 +217,7 @@ function enableBoard() {
         document.querySelector('.scoreboard').style.display = "flex"
     }
 }
+// function that addscore for a player to their player object
 function addScore(player = 0) {
     if(player.name === player1.name) {
         game.scoreBoard.player1[0] += 1
@@ -207,12 +231,14 @@ function addScore(player = 0) {
     }
     updateScoreBoard();
 }
+// function that updates the scoreBoard based on the players scores set in their objects
 function updateScoreBoard() {
     let player1P = document.querySelector('.scoreboard .player-1 p')
     let player2P = document.querySelector('.scoreboard .player-2 p')
     player1P.innerHTML = player1.name +" "+ player1.character + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
     player2P.innerHTML = player2.name +" "+ player2.character + "<br> Wins " + game.scoreBoard.player2[0] + "<br>Losses " + game.scoreBoard.player2[1] + "<br>Ties " + game.scoreBoard.player2[2]
 }
+// function that updates the player name and icon character after new ones have been chosen
 function updatePlayer(event) {
     event.preventDefault()
     player1.name = document.querySelector('.player1-name').innerHTML
@@ -239,10 +265,13 @@ function updatePlayer(event) {
 // Potential Extra Tic Tac Toe Features
 // Done
 // Keep track of multiple game rounds with a win, lose and tie counter
-
+// Done
 // Allow players to customize their tokens (X, O, name, picture, etc)
+// Done
+// Get inventive with your styling e.g. use hover effects or animations
+
+
 // Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
 // Involve Audio in your game
 // Create an AI opponent: teach JavaScript to play an unbeatable game against you
 // Make your site fully responsive so that it is playable from a mobile phone
-// Get inventive with your styling e.g. use hover effects or animations
