@@ -1,6 +1,6 @@
 // Create global objects
 // Represents the Game, player 1, player 2
-const game = {
+let game = {
     turn: 1,
     status: "On",
     board: document.querySelector('.boardForm'),
@@ -10,11 +10,11 @@ const game = {
         player2: [0,0,0]
     }
 }
-const player1 = {
+let player1 = {
     name: document.querySelector('.player1-name').innerHTML,
     character: document.querySelector('.player1-icon').innerHTML
 }
-const player2 = {
+let player2 = {
     name: document.querySelector('.player2-name').innerHTML,
     character: document.querySelector('.player2-icon').innerHTML
 }
@@ -43,7 +43,13 @@ function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
     }
-    updateScoreBoard();
+    if(localStorage.getItem('scoreboard') != null) {
+        retrieveLocalGameStorage()
+    }
+    if(localStorage.getItem('player1') != null) {
+        retrieveLocalPlayerStorage()
+    }
+    updateGameBoard();
     game.turn = 1;
     game.status = "On"
     buttons = document.querySelectorAll('.button')
@@ -150,8 +156,7 @@ function checkForWinner() {
         valueArray[5] === valueArray[8] && 
         valueArray[2] === valueArray[8] ) {
         displayWinner(valueArray[1])
-    }
-    //===== diagonal matches 
+    } //===== diagonal matches 
     else if(valueArray[0] === valueArray[4] && 
         valueArray[4] === valueArray[8] && 
         valueArray[0] === valueArray[8] ) {
@@ -226,10 +231,15 @@ function addScore(player = 0) {
         game.scoreBoard.player1[2] += 1
         game.scoreBoard.player2[2] += 1
     }
-    updateScoreBoard();
+    updateGameBoard();
+    storeScoreboardLocalStorage();
 }
 // function that updates the scoreBoard based on the players scores set in their objects
-function updateScoreBoard() {
+function updateGameBoard() {
+    document.querySelector('.player1-name').innerHTML = player1.name
+    document.querySelector('.player2-name').innerHTML = player2.name
+    document.querySelector('.player1-icon').innerHTML = player1.character
+    document.querySelector('.player2-icon').innerHTML = player2.character
     const player1P = document.querySelector('.scoreboard .player-1 p')
     const player2P = document.querySelector('.scoreboard .player-2 p')
     player1P.innerHTML = player1.name +" "+ player1.character + "<br> Wins " + game.scoreBoard.player1[0] + "<br>Losses " + game.scoreBoard.player1[1] + "<br>Ties " + game.scoreBoard.player1[2]
@@ -242,9 +252,25 @@ function updatePlayer(event) {
     player2.name = document.querySelector('.player2-name').innerHTML
     player1.character = document.querySelector('.player1-icon').innerHTML
     player2.character = document.querySelector('.player2-icon').innerHTML
+    storePlayerLocalStorage()
     createNewGame();
 }
+// functions to store and retrieve player data and scoreboard data
+function storePlayerLocalStorage() {
+    localStorage.setItem("player1", JSON.stringify(player1))
+    localStorage.setItem("player2", JSON.stringify(player2))
+}
+function storeScoreboardLocalStorage() {
+    localStorage.setItem("scoreboard", JSON.stringify(game.scoreBoard))
+}
+function retrieveLocalGameStorage() {
+    game.scoreBoard = JSON.parse(localStorage.getItem('scoreboard'))
+}
+function retrieveLocalPlayerStorage() {
+    player1 = JSON.parse(localStorage.getItem('player1'))
+    player2 = JSON.parse(localStorage.getItem('player2'))
 
+}
 
 // Potential Extra Tic Tac Toe Features
 // Done
