@@ -99,8 +99,8 @@ function displayPlayerTurn() {
     .innerHTML = currentPlayer.name + "'s Turn " + currentPlayer.character
 }
 //function that checks if a button on the board has already been selected
-function checkIfButtonSelected(event, currentPlayer) {
-    if (event.target.value === currentPlayer.character) {
+function checkIfButtonSelected(event) {
+    if (event.target.value === player1.character || event.target.value === player2.character) {
         return true;
     } else {
         false;
