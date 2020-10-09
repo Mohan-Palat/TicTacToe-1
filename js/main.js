@@ -33,10 +33,8 @@ function init() {
     })
 
     //add update button listeners
-    document.querySelector('.update-player-icon-1').addEventListener('click',updatePlayer)
-    document.querySelector('.update-player-name-1').addEventListener('click',updatePlayer)
-    document.querySelector('.update-player-icon-2').addEventListener('click',updatePlayer)
-    document.querySelector('.update-player-name-2').addEventListener('click',updatePlayer)
+    document.querySelector('.update-player-1').addEventListener('click',updatePlayer)
+    document.querySelector('.update-player-2').addEventListener('click',updatePlayer)
 
 }
 // function to initalize the game
@@ -51,7 +49,7 @@ function createNewGame(event) {
     buttons = document.querySelectorAll('.button')
     buttons.forEach( (button, index) => {
         button.innerHTML = ''
-        button.value = index + 1
+        button.value = "placeholder" + (index + 1)
     })
     enableBoard();
     displayPlayerTurn();
@@ -63,7 +61,7 @@ function createNewGame(event) {
 function selectSquare(event) {
     event.preventDefault();
     const currentPlayer = checkPlayersTurn()
-    if (!checkIfButtonSelected(event) && game.status === "On" ) {
+    if (!checkIfButtonSelected(event, currentPlayer) && game.status === "On" ) {
         event.target.innerHTML = currentPlayer.character
         currentPlayer.currentTurn = false;
         event.target.value = currentPlayer.character
@@ -99,8 +97,8 @@ function displayPlayerTurn() {
     .innerHTML = currentPlayer.name + "'s Turn " + currentPlayer.character
 }
 //function that checks if a button on the board has already been selected
-function checkIfButtonSelected(event) {
-    if (event.target.value === player1.character|| event.target.value === player2.character) {
+function checkIfButtonSelected(event, currentPlayer) {
+    if (event.target.value === currentPlayer.character) {
         return true;
     } else {
         false;
