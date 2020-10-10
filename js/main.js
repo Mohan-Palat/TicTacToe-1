@@ -48,7 +48,7 @@ function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
     }
-    game.turn = 1;
+    game.turn = Math.floor(Math.random() * Math.floor(2))
     game.status = "On"
     retrieveLocalPlayerStorage()
     retrieveLocalGameStorage()
@@ -302,6 +302,7 @@ function enableAudio(event) {
         document.querySelector('.sound-button').innerHTML = "Sound Off"
     }
 }
+
 // Potential Extra Tic Tac Toe Features
 // Done
 // Keep track of multiple game rounds with a win, lose and tie counter
@@ -313,6 +314,8 @@ function enableAudio(event) {
 // Make your site fully responsive so that it is playable from a mobile phone
 // Done
 // Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
-
+// Done
 // Involve Audio in your game
+
+
 // Create an AI opponent: teach JavaScript to play an unbeatable game against you
