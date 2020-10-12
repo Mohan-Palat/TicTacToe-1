@@ -69,7 +69,7 @@ function selectSquare(event) {
         event.target.value = currentPlayer.character
         changePlayersTurn()
         displayPlayerTurn()
-        checkForWinner()
+        checkForWinner(currentPlayer)
     } else if (game.status === "Off") {
         alert("The game has ended! Select New Game to play again")
     } else {
@@ -106,60 +106,39 @@ function checkIfButtonSelected(event) {
         false;
     }
 }
-// function that checks if every box is selected and no winner reached (used for Ties)
-function checkIfArrayComplete(valueArray) {
-    let count = 0;
-    valueArray.forEach(element => {
-        if (element === player1.character || element === player2.character) {
-            count = count + 1;
-        }
-    })
-    return count
+// function that checks for available spots left on the board
+function checkIfBoardComplete(board) {
+    board.filter(s => s != player1.character && s != player2.character);
 }
 // function that holds the logic for checking if there is a winner after each turn
 // adds button values to an array, depending on values in certain indexes tries to find a winner
 // calls the displayWinner function with the characters symbol
-function checkForWinner() {
+function checkForWinner_old() {
     const buttons = document.querySelectorAll('.button')
     let valueArray = []
     buttons.forEach( (button) => {
        valueArray.push(button.value)
     })
     console.log(valueArray);
+    console.log(emptySpots(valueArray));
     //======= horizontal matches
-    if(valueArray[0] === valueArray[1] && 
-        valueArray[1] === valueArray[2] && 
-        valueArray[0] === valueArray[2] ) {
+    if(valueArray[0] === valueArray[1] && valueArray[1] === valueArray[2] && valueArray[0] === valueArray[2] ) {
         displayWinner(valueArray[0])
-    } else if(valueArray[3] === valueArray[4] && 
-        valueArray[4] === valueArray[5] && 
-        valueArray[3] === valueArray[5] ) {
+    } else if(valueArray[3] === valueArray[4] && valueArray[4] === valueArray[5] && valueArray[3] === valueArray[5] ) {
         displayWinner(valueArray[3])
-    } else if(valueArray[6] === valueArray[7] && 
-        valueArray[7] === valueArray[8] && 
-        valueArray[6] === valueArray[8] ) {
+    } else if(valueArray[6] === valueArray[7] && valueArray[7] === valueArray[8] && valueArray[6] === valueArray[8] ) {
         displayWinner(valueArray[6])
     //====== vertical matches
-    } else if(valueArray[0] === valueArray[3] && 
-        valueArray[3] === valueArray[6] && 
-        valueArray[0] === valueArray[6] ) {
+    } else if(valueArray[0] === valueArray[3] && valueArray[3] === valueArray[6] && valueArray[0] === valueArray[6] ) {
         displayWinner(valueArray[0])
-    } else if(valueArray[1] === valueArray[4] && 
-        valueArray[4] === valueArray[7] && 
-        valueArray[1] === valueArray[7] ) {
+    } else if(valueArray[1] === valueArray[4] && valueArray[4] === valueArray[7] && valueArray[1] === valueArray[7] ) {
         displayWinner(valueArray[1])
-    } else if(valueArray[2] === valueArray[5] && 
-        valueArray[5] === valueArray[8] && 
-        valueArray[2] === valueArray[8] ) {
+    } else if(valueArray[2] === valueArray[5] && valueArray[5] === valueArray[8] && valueArray[2] === valueArray[8] ) {
         displayWinner(valueArray[1])
     } //===== diagonal matches 
-    else if(valueArray[0] === valueArray[4] && 
-        valueArray[4] === valueArray[8] && 
-        valueArray[0] === valueArray[8] ) {
+    else if(valueArray[0] === valueArray[4] && valueArray[4] === valueArray[8] && valueArray[0] === valueArray[8] ) {
         displayWinner(valueArray[0])
-    } else if(valueArray[2] === valueArray[4] && 
-        valueArray[4] === valueArray[6] && 
-        valueArray[2] === valueArray[6] ) {
+    } else if(valueArray[2] === valueArray[4] && valueArray[4] === valueArray[6] && valueArray[2] === valueArray[6] ) {
         displayWinner(valueArray[2])
     } else {
         let count = checkIfArrayComplete(valueArray)
@@ -178,6 +157,35 @@ function checkForWinner() {
     //===== diagonal winners
     // index 0, 4, 8 match - done
     // index 2, 4, 6 match - done
+}
+function checkForWinner(player) {
+    const buttons = document.querySelectorAll('.button')
+    let board = []
+    let availSpots
+    buttons.forEach( (button) => {
+       board.push(button.value)
+    })
+    console.log(board);
+    if (
+        // horizontal wins
+        (board[0] == player.character && board[1] == player.character && board[2] == player.character) ||
+        (board[3] == player.character && board[4] == player.character && board[5] == player.character) ||
+        (board[6] == player.character && board[7] == player.character && board[8] == player.character) ||
+        // vertical wins
+        (board[0] == player.character && board[3] == player.character && board[6] == player.character) ||
+        (board[1] == player.character && board[4] == player.character && board[7] == player.character) ||
+        (board[2] == player.character && board[5] == player.character && board[8] == player.character) ||
+        // diagonal wins
+        (board[0] == player.character && board[4] == player.character && board[8] == player.character) ||
+        (board[2] == player.character && board[4] == player.character && board[6] == player.character)
+        ) {
+            displayWinner(player.character);
+        } else {
+            availSpots = checkIfBoardComplete(board)
+            if (availSpots === 0) {
+                displayWinner()
+            }
+        }
 }
 // function that receives the winning character of the player 
 // calls addScore with that player 
@@ -302,20 +310,5 @@ function enableAudio(event) {
         document.querySelector('.sound-button').innerHTML = "Sound Off"
     }
 }
-
-// Potential Extra Tic Tac Toe Features
-// Done
-// Keep track of multiple game rounds with a win, lose and tie counter
-// Done
-// Allow players to customize their tokens (X, O, name, picture, etc)
-// Done
-// Get inventive with your styling e.g. use hover effects or animations
-// Done 
-// Make your site fully responsive so that it is playable from a mobile phone
-// Done
-// Use localStorage to persist data locally to allow games to continue after page refresh or loss of internet connectivity
-// Done
-// Involve Audio in your game
-
 
 // Create an AI opponent: teach JavaScript to play an unbeatable game against you
