@@ -17,7 +17,7 @@ https://drive.google.com/file/d/1tcLrbXskvsy6xBd_P9nYVV7IlHcYkfQ6/view?usp=shari
 - User Stories
 https://git.generalassemb.ly/prudential-0921/project-1
 
-## Document your planning and tell a story about your development process and problem-solving strategy.
+## Development and Problem Solving Strategy
 User Story Driven Development.
 1. Develop a WireFrame Design 
 2. Create basic Html Elements
