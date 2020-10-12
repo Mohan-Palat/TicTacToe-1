@@ -1,4 +1,6 @@
 # Tic Tac Toe
+- GitHub Pages Link: 
+https://scocuzza.github.io/TicTacToe/html/index.html
 - Two Player Tic Tac Toe Game
 - Customize Player Name and Player Character
 - Keep and Record Score in a Leaderboard across multiple rounds !
