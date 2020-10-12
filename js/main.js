@@ -108,7 +108,7 @@ function checkIfButtonSelected(event) {
 }
 // function that checks for available spots left on the board
 function checkIfBoardComplete(board) {
-    board.filter(s => s != player1.character && s != player2.character);
+    return board.filter(s => s != player1.character && s != player2.character);
 }
 // function that holds the logic for checking if there is a winner after each turn
 // adds button values to an array, depending on values in certain indexes tries to find a winner
@@ -165,7 +165,6 @@ function checkForWinner(player) {
     buttons.forEach( (button) => {
        board.push(button.value)
     })
-    console.log(board);
     if (
         // horizontal wins
         (board[0] == player.character && board[1] == player.character && board[2] == player.character) ||
@@ -182,7 +181,7 @@ function checkForWinner(player) {
             displayWinner(player.character);
         } else {
             availSpots = checkIfBoardComplete(board)
-            if (availSpots === 0) {
+            if (availSpots.length === 0) {
                 displayWinner()
             }
         }

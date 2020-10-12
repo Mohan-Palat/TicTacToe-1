@@ -16,6 +16,7 @@ https://scocuzza.github.io/TicTacToe/html/index.html
 ## Link to wireframe and User Stories
 - WireFrame
 https://drive.google.com/file/d/1tcLrbXskvsy6xBd_P9nYVV7IlHcYkfQ6/view?usp=sharing
+
 - User Stories
 https://git.generalassemb.ly/prudential-0921/project-1
 
