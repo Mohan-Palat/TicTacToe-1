@@ -1,7 +1,8 @@
 # Tic Tac Toe
 - GitHub Pages Link: 
 https://scocuzza.github.io/TicTacToe/html/index.html
-- Two Player Tic Tac Toe Game
+- Single Player And Multiplayer Tic Tac Toe Game
+- See if you can beat the Single Player Opponent !
 - Customize Player Name and Player Character
 - Keep and Record Score in a Leaderboard across multiple rounds !
 - Responsive and Playable on PC and all Mobile Devices
@@ -31,6 +32,13 @@ User Story Driven Development.
 7. Tacking Extra features one by one by repeating steps 2-6
 
 ## List unsolved problems which would be fixed in future iterations.
+- Show that you are battling against the computer when in Single Player Mode
+- Allow Muliplayer across devices
 
 ## Describe how you solved for the winner
+- First thing was to represent the Tic Tac Toe Board as an array
+- Each index in the array corresponds to a box on the board
+- Write If / Else If statements to check if (first 3 indexes, second 3 indexes, third 3 indexes) are all a matching character (this will give you a winning row, do the same for vertical and diagonal matches o)
 ## Describe how some of your favorite functions work
+- checkForWinner(board, player) - takes the current board and player argument to see if any terminal states have been reached (3 in a row, 3 vertical, 3 diagonal, or full board and no matches (tie))
+- storePlayerLocalStorage() - after each time a player updates their name or icon - call this function to keep the data persist upon exit/refresh

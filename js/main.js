@@ -156,7 +156,7 @@ function checkIfBoardComplete() {
 // adds button values to an array, depending on values in certain indexes tries to find a winner
 // calls the displayWinner function with the characters symbol
 function checkForWinner(board, player) {
-    let availSpots
+    let spotsLeft
     if (
         // horizontal wins
         (board[0] == player.character && board[1] == player.character && board[2] == player.character) ||
@@ -310,26 +310,32 @@ function minimax(newBoard, player) {
     // recursive function
     // 1. return a value if a terminal state is found (+10, -10, 0)
     // 2. go through available spots on the board
-    // 3. call the minima function on each available spot (recursion)
+    // 3. call the minimax function on each available spot (recursion)
     // 4. evaluate returning values from function calls
     // 5. return the best value
 
-    let availSpots = checkIfBoardComplete()
+    // get an array of the spots left on the board
+    let spotsLeft = checkIfBoardComplete()
+    // create an empty moves array
     let moves = []
+    // check if terminal states have been reached and return value based on player1 win, player2 win, or tie
     if (checkForWinner(newBoard, player1)){
         return {score:-10};
     }
     else if (checkForWinner(newBoard, player2)){
         return {score:10};
     }
-    else if (availSpots.length === 0){
+    else if (spotsLeft.length === 0){
         return {score:0};
     }
 
-    for (let i = 0; i < availSpots.length; i++) {
+    for (let i = 0; i < spotsLeft.length; i++) {
          let move = {}
-         move.index = newBoard[availSpots[i]]
-         newBoard[availSpots[i]] = player.character
+         // set move index to first available spot on board
+         move.index = newBoard[spotsLeft[i]]
+         // perform that move by filling in the board with the player's character
+         newBoard[spotsLeft[i]] = player.character
+         // if the current players character is equal to the ai (player2's) character
         if(player.character == player2.character ) {
             let result = minimax(newBoard, player1)
             move.score = result.score
@@ -337,7 +343,7 @@ function minimax(newBoard, player) {
             let result = minimax(newBoard, player2)
             move.score = result.score
         }
-        newBoard[availSpots[i]] = move.index
+        newBoard[spotsLeft[i]] = move.index
         moves.push(move)
     }
     let bestMove;
