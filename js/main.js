@@ -3,6 +3,7 @@
 let game = {
     turn: 1,
     status: "On",
+    singlePlayerMode: false,
     boardElement: document.querySelector('.boardForm'),
     board: Array.from(Array(9).keys()),
     scoreBoard: {
@@ -25,11 +26,11 @@ init()
 function init() {
     //add listener to 'New game button'
     document.querySelector('.new-game-btn')
-    .addEventListener('click', createNewGame)
+    .addEventListener('click', normalMode)
 
     //add listener to 'New game button'
     document.querySelector('.computer-btn')
-    .addEventListener('click', createNewGame)
+    .addEventListener('click', computerMode)
 
     //add listner to sound button
     document.querySelector('.sound-button')
@@ -54,15 +55,42 @@ function createNewGame(event) {
     if(event != undefined) {
         event.preventDefault()
     }
-    game.turn = Math.floor(Math.random() * Math.floor(2))
+    if(game.singlePlayerMode == false) {
+        game.turn = Math.floor(Math.random() * Math.floor(2))
+    }
+    else {
+        game.turn = 1;
+    }
     game.status = "On"
+
     retrieveLocalPlayerStorage()
     retrieveLocalGameStorage()
     clearBoardButtons()
     enableBoard()
     updateGameBoard()
     displayPlayerTurn()
+    displayGameMode()
 }
+function computerSelectSquare() {
+            let chosenSpot = chooseSpot()
+            if (chosenSpot != null) {
+                chosenButton = document.getElementById(chosenSpot)
+                chosenButton.innerHTML = player2.character
+                chosenButton.value = player2.character
+                game.board[chosenSpot] = player2.character
+                changePlayersTurn()
+                displayPlayerTurn()
+                if(checkForWinner(game.board, player1) === true) {
+                    displayWinner(player1.character)
+                } else if (checkForWinner(game.board, player2) === true){
+                    displayWinner(player2.character)
+                }
+            } else {
+               if(checkIfBoardComplete().length === 0) {
+                    displayWinner()
+                }
+            }
+    }
 // function that triggers when a square is selected on the board
 // checks players turn, checks square is selected, checks if gamestatus is on
 // sets the buttons value on click
@@ -76,6 +104,9 @@ function selectSquare(event) {
             game.board[event.target.id] = currentPlayer.character
             changePlayersTurn()
             displayPlayerTurn()
+            if(game.singlePlayerMode === true) {
+                computerSelectSquare()
+            }
             if(checkForWinner(game.board, currentPlayer) === true) {
                 displayWinner(currentPlayer.character)
             } else if(checkIfBoardComplete().length === 0) {
@@ -331,4 +362,19 @@ function minimax(newBoard, player) {
 }
 function chooseSpot() {
     return minimax(game.board, player2).index
+}
+function computerMode() {
+    game.singlePlayerMode = true;
+    createNewGame()
+}
+function normalMode() {
+    game.singlePlayerMode = false;
+    createNewGame();
+}
+function displayGameMode() {
+    if (game.singlePlayerMode === true) {
+        document.querySelector('.game-mode').innerHTML = 'Single Player vs. Computer'
+    } else {
+        document.querySelector('.game-mode').innerHTML = 'Multiplayer'
+    }
 }

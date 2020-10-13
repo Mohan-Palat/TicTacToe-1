@@ -15,6 +15,9 @@ body {
     background-size: cover;
     color: whitesmoke;
 }
+.game-mode {
+    font-size: 20px;
+}
 button:hover {
     cursor: pointer;
 }
@@ -45,7 +48,7 @@ button:hover {
 .new-game-btn:hover, .reset-score:hover, 
 .boardform .player1-info button:hover,
 .boardform .player2-info button:hover,
-.sound-button:hover {
+.sound-button:hover, .computer-btn:hover {
     background-color: darkgrey;
 }
 .button {
