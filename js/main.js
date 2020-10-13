@@ -3,7 +3,8 @@
 let game = {
     turn: 1,
     status: "On",
-    board: document.querySelector('.boardForm'),
+    boardElement: document.querySelector('.boardForm'),
+    board: Array.from(Array(9).keys()),
     scoreBoard: {
         element: document.querySelector('.scoreboard'),
         player1: [0,0,0],
@@ -12,11 +13,11 @@ let game = {
 }
 let player1 = {
     name: document.querySelector('.player1-name').innerHTML,
-    character: document.querySelector('.player1-icon').innerHTML
+    character: document.querySelector('.player1-icon').innerHTML,
 }
 let player2 = {
     name: document.querySelector('.player2-name').innerHTML,
-    character: document.querySelector('.player2-icon').innerHTML
+    character: document.querySelector('.player2-icon').innerHTML,
 }
 // init function to be ran first
 // Adds listeners to elements on page
@@ -26,12 +27,17 @@ function init() {
     document.querySelector('.new-game-btn')
     .addEventListener('click', createNewGame)
 
+    //add listener to 'New game button'
+    document.querySelector('.computer-btn')
+    .addEventListener('click', createNewGame)
+
     //add listner to sound button
     document.querySelector('.sound-button')
     .addEventListener('click', enableAudio)
+
     //add listeners to buttons
     const buttons = document.querySelectorAll('.button')
-    buttons.forEach(button => { 
+    buttons.forEach( (button) => { 
         button.addEventListener('click', selectSquare)
     })
 
@@ -64,18 +70,23 @@ function createNewGame(event) {
 function selectSquare(event) {
     event.preventDefault();
     const currentPlayer = checkPlayersTurn()
-    if (!checkIfButtonSelected(event, currentPlayer) && game.status === "On" ) {
-        event.target.innerHTML = currentPlayer.character
-        event.target.value = currentPlayer.character
-        changePlayersTurn()
-        displayPlayerTurn()
-        checkForWinner(currentPlayer)
-    } else if (game.status === "Off") {
-        alert("The game has ended! Select New Game to play again")
-    } else {
-        alert("This Box was already chosen!! \nPlease Choose Another Box")
+        if (!checkIfButtonSelected(event, currentPlayer) && game.status === "On" ) {
+            event.target.innerHTML = currentPlayer.character
+            event.target.value = currentPlayer.character
+            game.board[event.target.id] = currentPlayer.character
+            changePlayersTurn()
+            displayPlayerTurn()
+            if(checkForWinner(game.board, currentPlayer) === true) {
+                displayWinner(currentPlayer.character)
+            } else if(checkIfBoardComplete().length === 0) {
+                displayWinner()
+            }
+        } else if (game.status === "Off") {
+            alert("The game has ended! Select New Game to play again")
+        } else {
+            alert("This Box was already chosen!! \nPlease Choose Another Box")
+        }
     }
-}
 // function that returns which players turn it is
 function checkPlayersTurn() {
     if(game.turn === 1) {
@@ -107,64 +118,14 @@ function checkIfButtonSelected(event) {
     }
 }
 // function that checks for available spots left on the board
-function checkIfBoardComplete(board) {
-    return board.filter(s => s != player1.character && s != player2.character);
+function checkIfBoardComplete() {
+    return game.board.filter(s => s != player1.character && s != player2.character);
 }
 // function that holds the logic for checking if there is a winner after each turn
 // adds button values to an array, depending on values in certain indexes tries to find a winner
 // calls the displayWinner function with the characters symbol
-function checkForWinner_old() {
-    const buttons = document.querySelectorAll('.button')
-    let valueArray = []
-    buttons.forEach( (button) => {
-       valueArray.push(button.value)
-    })
-    console.log(valueArray);
-    console.log(emptySpots(valueArray));
-    //======= horizontal matches
-    if(valueArray[0] === valueArray[1] && valueArray[1] === valueArray[2] && valueArray[0] === valueArray[2] ) {
-        displayWinner(valueArray[0])
-    } else if(valueArray[3] === valueArray[4] && valueArray[4] === valueArray[5] && valueArray[3] === valueArray[5] ) {
-        displayWinner(valueArray[3])
-    } else if(valueArray[6] === valueArray[7] && valueArray[7] === valueArray[8] && valueArray[6] === valueArray[8] ) {
-        displayWinner(valueArray[6])
-    //====== vertical matches
-    } else if(valueArray[0] === valueArray[3] && valueArray[3] === valueArray[6] && valueArray[0] === valueArray[6] ) {
-        displayWinner(valueArray[0])
-    } else if(valueArray[1] === valueArray[4] && valueArray[4] === valueArray[7] && valueArray[1] === valueArray[7] ) {
-        displayWinner(valueArray[1])
-    } else if(valueArray[2] === valueArray[5] && valueArray[5] === valueArray[8] && valueArray[2] === valueArray[8] ) {
-        displayWinner(valueArray[1])
-    } //===== diagonal matches 
-    else if(valueArray[0] === valueArray[4] && valueArray[4] === valueArray[8] && valueArray[0] === valueArray[8] ) {
-        displayWinner(valueArray[0])
-    } else if(valueArray[2] === valueArray[4] && valueArray[4] === valueArray[6] && valueArray[2] === valueArray[6] ) {
-        displayWinner(valueArray[2])
-    } else {
-        let count = checkIfArrayComplete(valueArray)
-        if (count === 9) {
-            displayWinner()
-        }
-    }
-    //===== horizontal winners
-    // index 0, 1, 2 match - done
-    // index 3, 4, 5 match - done
-    // index 6, 7, 8 match - done
-    //===== vertical winners
-    // index 0, 3, 6 match - done
-    // index 1, 4, 7 match - done 
-    // index 2, 5, 8 match - done 
-    //===== diagonal winners
-    // index 0, 4, 8 match - done
-    // index 2, 4, 6 match - done
-}
-function checkForWinner(player) {
-    const buttons = document.querySelectorAll('.button')
-    let board = []
+function checkForWinner(board, player) {
     let availSpots
-    buttons.forEach( (button) => {
-       board.push(button.value)
-    })
     if (
         // horizontal wins
         (board[0] == player.character && board[1] == player.character && board[2] == player.character) ||
@@ -178,12 +139,9 @@ function checkForWinner(player) {
         (board[0] == player.character && board[4] == player.character && board[8] == player.character) ||
         (board[2] == player.character && board[4] == player.character && board[6] == player.character)
         ) {
-            displayWinner(player.character);
+            return true;
         } else {
-            availSpots = checkIfBoardComplete(board)
-            if (availSpots.length === 0) {
-                displayWinner()
-            }
+            return false;
         }
 }
 // function that receives the winning character of the player 
@@ -215,8 +173,8 @@ function endGame() {
 }
 // function that displays the game board and scoreBoard
 function enableBoard() {
-    if (game.board.style.display === "") {
-        game.board.style.display = "flex"
+    if (game.boardElement.style.display === "") {
+        game.boardElement.style.display = "flex"
     }
     if (document.querySelector('.scoreboard').style.display === "") {
         document.querySelector('.scoreboard').style.display = "flex"
@@ -256,10 +214,17 @@ function updatePlayer(event) {
     event.preventDefault()
     player1.name = document.querySelector('.player1-name').innerHTML
     player2.name = document.querySelector('.player2-name').innerHTML
-    player1.character = document.querySelector('.player1-icon').innerHTML
-    player2.character = document.querySelector('.player2-icon').innerHTML
-    storePlayerLocalStorage()
-    createNewGame();
+    let tempChar1 = document.querySelector('.player1-icon').innerHTML
+    let tempChar2 =  player2.character = document.querySelector('.player2-icon').innerHTML
+    if(tempChar1 === tempChar2) {
+        alert('Please select another character!')
+        createNewGame();
+    } else {
+        player1.character = document.querySelector('.player1-icon').innerHTML
+        player2.character = document.querySelector('.player2-icon').innerHTML
+        storePlayerLocalStorage()
+        createNewGame();
+    }
 }
 function resetScore(){
     game.scoreBoard.player1[0] = 0;
@@ -295,8 +260,9 @@ function clearBoardButtons(){
     buttons = document.querySelectorAll('.button')
     buttons.forEach( (button, index) => {
         button.innerHTML = ''
-        button.value = "placeholder" + (index + 1)
+        button.value = ''
     })
+    game.board = Array.from(Array(9).keys())
 }
 function enableAudio(event) {
     let volcanoSound = document.querySelector('.volcano-mp3')
@@ -309,5 +275,60 @@ function enableAudio(event) {
         document.querySelector('.sound-button').innerHTML = "Sound Off"
     }
 }
+function minimax(newBoard, player) {
+    // recursive function
+    // 1. return a value if a terminal state is found (+10, -10, 0)
+    // 2. go through available spots on the board
+    // 3. call the minima function on each available spot (recursion)
+    // 4. evaluate returning values from function calls
+    // 5. return the best value
 
-// Create an AI opponent: teach JavaScript to play an unbeatable game against you
+    let availSpots = checkIfBoardComplete()
+    let moves = []
+    if (checkForWinner(newBoard, player1)){
+        return {score:-10};
+    }
+    else if (checkForWinner(newBoard, player2)){
+        return {score:10};
+    }
+    else if (availSpots.length === 0){
+        return {score:0};
+    }
+
+    for (let i = 0; i < availSpots.length; i++) {
+         let move = {}
+         move.index = newBoard[availSpots[i]]
+         newBoard[availSpots[i]] = player.character
+        if(player.character == player2.character ) {
+            let result = minimax(newBoard, player1)
+            move.score = result.score
+        }else {
+            let result = minimax(newBoard, player2)
+            move.score = result.score
+        }
+        newBoard[availSpots[i]] = move.index
+        moves.push(move)
+    }
+    let bestMove;
+    if (player.character === player2.character) {
+        let bestScore = -Infinity
+        for(let i =0; i < moves.length; i++) {
+            if(moves[i].score > bestScore) {
+                bestScore = moves[i].score
+                bestMove = i
+            }
+        }
+    }else {
+        let bestScore = +Infinity
+        for(let i = 0; i < moves.length; i++) {
+            if(moves[i].score < bestScore) {
+                bestScore = moves[i].score
+                bestMove = i
+            }
+        }
+    }
+    return moves[bestMove];
+}
+function chooseSpot() {
+    return minimax(game.board, player2).index
+}

@@ -26,6 +26,14 @@ button:hover {
     color: whitesmoke;
     border-color: whitesmoke;
 }
+.computer-btn {
+    margin-bottom: 0px;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: whitesmoke;
+    border-color: whitesmoke;
+}
 .sound-button {
     margin: 10px;
     border-radius: 10px;
