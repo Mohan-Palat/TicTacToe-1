@@ -42,7 +42,7 @@ User Story Driven Development.
 ## Describe how some of your favorite functions work
 - checkForWinner(board, player) - takes the current board and player argument to see if any terminal states have been reached (3 in a row, 3 vertical, 3 diagonal, or full board and no matches (tie))
 - storePlayerLocalStorage() - after each time a player updates their name or icon - call this function to keep the data persist upon exit/refresh
-
+- addScore function stores the win/loss/tie record for player 1 and player 2 in the scoreboard object as an array ([1,2,3] meaning 1 win 2 losses 3 ties)
 ## Link to Notable Sources
 - AI Implementation Minimax
 - https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/
