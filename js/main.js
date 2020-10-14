@@ -295,7 +295,7 @@ function clearBoardButtons(){
     })
     game.board = Array.from(Array(9).keys())
 }
-function enableAudio(event) {
+function enableAudio() {
     let volcanoSound = document.querySelector('.volcano-mp3')
     let volanoSoundButtonStatus = document.querySelector('.sound-button').innerHTML
     if (volanoSoundButtonStatus === "Sound Off") {
@@ -307,18 +307,13 @@ function enableAudio(event) {
     }
 }
 function minimax(newBoard, player) {
-    // recursive function
-    // 1. return a value if a terminal state is found (+10, -10, 0)
-    // 2. go through available spots on the board
-    // 3. call the minimax function on each available spot (recursion)
-    // 4. evaluate returning values from function calls
-    // 5. return the best value
-
-    // get an array of the spots left on the board
+    // create an array of the empty spots left on the board
     let spotsLeft = checkIfBoardComplete()
-    // create an empty moves array
-    let moves = []
-    // check if terminal states have been reached and return value based on player1 win, player2 win, or tie
+
+    // check for terminal states 
+    // player 1 win return -10
+    // player 2 win return 10
+    // tie return 0
     if (checkForWinner(newBoard, player1)){
         return {score:-10};
     }
@@ -329,13 +324,19 @@ function minimax(newBoard, player) {
         return {score:0};
     }
 
+    // an array to collect all the moves objects
+    let moves = []
+    // loop through the spotsLeft array
     for (let i = 0; i < spotsLeft.length; i++) {
+        // create an object to store the index of the current empty spot
          let move = {}
          // set move index to first available spot on board
          move.index = newBoard[spotsLeft[i]]
-         // perform that move by filling in the board with the player's character
+         // fill in the board with the current players character
+         // simulating the next move
          newBoard[spotsLeft[i]] = player.character
-         // if the current players character is equal to the ai (player2's) character
+         // call the minimax function for the opposing character and retrieve a score
+         // collect the score and store in move.score
         if(player.character == player2.character ) {
             let result = minimax(newBoard, player1)
             move.score = result.score
@@ -343,10 +344,14 @@ function minimax(newBoard, player) {
             let result = minimax(newBoard, player2)
             move.score = result.score
         }
+        //reset the current spot to empty
         newBoard[spotsLeft[i]] = move.index
         moves.push(move)
     }
+    console.log(moves);
     let bestMove;
+    //when it is the computer's turn (player 2)
+    // loop over the moves and choose the move with the highest score
     if (player.character === player2.character) {
         let bestScore = -Infinity
         for(let i =0; i < moves.length; i++) {
