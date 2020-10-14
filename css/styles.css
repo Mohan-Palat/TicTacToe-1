@@ -129,6 +129,14 @@ button:hover {
 .board {
     background-color: transparent;
 }
+@media only screen and (max-width: 1025px) {
+    body {
+        background-image:linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ), url('../img/fuji-mobile.png');
+    }
+}
 @media only screen and (max-width: 600px) {
     .player1-info .player1-icon, .player2-info .player2-icon {
         font-size: 40px;

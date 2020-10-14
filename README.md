@@ -34,6 +34,7 @@ User Story Driven Development.
 ## List unsolved problems which would be fixed in future iterations.
 - Show that you are battling against the computer when in Single Player Mode
 - Allow Muliplayer across devices
+- Change background to volcano exploding when player wins 
 
 ## Describe how you solved for the winner
 - First thing was to represent the Tic Tac Toe Board as an array
