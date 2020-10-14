@@ -360,6 +360,8 @@ function minimax(newBoard, player) {
             }
         }
     }else {
+        // when it is not the computer's turn (player 1)
+        // loop over moves and choose with the lower score
         let bestScore = +Infinity
         for(let i = 0; i < moves.length; i++) {
             if(moves[i].score < bestScore) {
