@@ -348,7 +348,6 @@ function minimax(newBoard, player) {
         newBoard[spotsLeft[i]] = move.index
         moves.push(move)
     }
-    console.log(moves);
     let bestMove;
     //when it is the computer's turn (player 2)
     // loop over the moves and choose the move with the highest score
